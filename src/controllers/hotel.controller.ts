@@ -1,6 +1,7 @@
 // src/controllers/hotel.controller.ts
 
 import { NextFunction, Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
 import { createHotelService, deleteHotelService, findHotelService ,updateHotelService , findAllHotelsService } from "../services/hotel.service";
 
 export async function createHotelController(req: Request, res: Response , next: NextFunction) {
@@ -8,7 +9,7 @@ export async function createHotelController(req: Request, res: Response , next: 
 
     const hotel = await createHotelService(req.body);
 
-    res.status(201).json({
+    res.status(StatusCodes.CREATED).json({
       success: true,
       message: "Hotel created successfully",
       data: hotel,
@@ -22,7 +23,7 @@ export async function findHotelController(req: Request, res: Response, next: Nex
   try {
     const { id } = req.params;
     const hotel = await findHotelService(id); // Service will throw NotFoundError if needed
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       success: true,
       message: "Hotel found successfully",
       data: hotel,
@@ -36,7 +37,7 @@ export async function updateHotelController(req: Request, res: Response, next: N
   try {
     const { id } = req.params;
     const hotel = await updateHotelService(id, req.body);
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       success: true,
       message: "Hotel updated successfully",
       data: hotel,
@@ -50,10 +51,7 @@ export async function deleteHotelController(req: Request, res: Response, next: N
   try{
     const { id } = req.params;
     await deleteHotelService(id);
-    res.status(200).json({
-      success: true,
-      message: "Hotel deleted successfully",
-    });
+    res.status(StatusCodes.NO_CONTENT).send(); // No content response
   } catch (error) {
     next(error); // Pass to error middleware
   }
@@ -61,7 +59,7 @@ export async function deleteHotelController(req: Request, res: Response, next: N
 export async function findAllHotelsController(req: Request, res: Response, next: NextFunction) {
   try {
     const hotels = await findAllHotelsService();
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       success: true,
       message: "Hotels retrieved successfully",
       data: hotels,
