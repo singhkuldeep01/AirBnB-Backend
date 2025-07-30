@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createHotelController, findHotelController, updateHotelController } from "../controller/hotel.controller";
+import { createHotelController, findHotelController, updateHotelController } from "../controllers/hotel.controller";
 import { createHotelSchema, updateHotelSchema } from "../validations/hotel.validation";
 import { validate } from "../middleware/validateZodSchema.middleware";
 

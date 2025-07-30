@@ -1,4 +1,4 @@
-import { Hotel } from "../db/models/hotels.models";
+import { Hotel } from "../db/models/hotels.model";
 import {
   CreateHotelInput,
   UpdateHotelInput,

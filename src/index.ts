@@ -1,4 +1,4 @@
-import { serverConfig } from './config';
+import { serverConfig } from './configs';
 import app from './app';
 import sequelize from './db/models/sequelize';
 

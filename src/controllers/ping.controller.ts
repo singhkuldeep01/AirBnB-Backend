@@ -1,6 +1,6 @@
 import { NextFunction, Request , Response } from "express";
 import { FileNotFoundError, InternalServerError } from "../utils/errors/app.error";
-import logger from "../config/logger.config";
+import logger from "../configs/logger.config";
 import { getRequestId } from "../utils/asyncContext.util";
 export const pingController = (req : Request, res: Response , next : NextFunction) : void => {
     // Get request ID from AsyncLocalStorage

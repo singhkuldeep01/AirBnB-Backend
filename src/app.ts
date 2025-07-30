@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import { errorHandler } from './middleware/error.middleware';
 import { attachUniqueID } from './middleware/attachUniqueID.middleware';
-import hotelRoutes from './router/hotel.route';
-import pingRouter from './router/ping.router';
+import hotelRoutes from './routes/hotel.route';
+import pingRouter from './routes/ping.route';
 
 const app = express();
 

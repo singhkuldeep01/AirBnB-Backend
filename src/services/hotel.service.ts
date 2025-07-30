@@ -1,4 +1,4 @@
-import { HotelRepository } from "../repositories/hotel.repositorie";
+import { HotelRepository } from "../repositories/hotel.repository";
 import { CreateHotelInput, UpdateHotelInput } from "../validations/hotel.validation";
 import { InternalServerError, NotFoundError } from "../utils/errors/app.error";
 
