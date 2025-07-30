@@ -29,3 +29,16 @@ export async function updateHotelService(id: string, data: UpdateHotelInput) {
   const updatedHotel = await hotelRepository.updateHotelRecord(hotel, data);
   return updatedHotel;
 }
+
+export async function deleteHotelService(id: string){
+    const hotel = await hotelRepository.findHotel(id);
+    if (!hotel) throw new NotFoundError("Hotel not found");
+    await hotelRepository.deleteHotel(hotel);
+}
+
+export async function findAllHotelsService(){
+    const hotels = await hotelRepository.findAllHotels();
+    if (!hotels || hotels.length === 0) throw new NotFoundError("No hotels found");
+    return hotels;
+}
+

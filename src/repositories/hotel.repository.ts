@@ -23,4 +23,11 @@ export class HotelRepository {
     });
     return updatedHotel;
   }
+  async deleteHotel(hotel: Hotel){
+      await hotel.destroy();
+  }
+  async findAllHotels(){
+    const hotels = await Hotel.findAll();
+    return hotels;
+  }
 }
