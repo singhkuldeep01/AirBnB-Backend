@@ -2,7 +2,7 @@
 
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { createHotelService, deleteHotelService, findHotelService ,updateHotelService , findAllHotelsService } from "../services/hotel.service";
+import { createHotelService, findHotelService ,updateHotelService , findAllHotelsService, findAllActiveHotelsService, softDeleteHotelService, hardDeleteHotelService } from "../services/hotel.service";
 
 export async function createHotelController(req: Request, res: Response , next: NextFunction) {
   try {
@@ -50,7 +50,7 @@ export async function updateHotelController(req: Request, res: Response, next: N
 export async function deleteHotelController(req: Request, res: Response, next: NextFunction) {
   try{
     const { id } = req.params;
-    await deleteHotelService(id);
+    await hardDeleteHotelService(id);
     res.status(StatusCodes.NO_CONTENT).send(); // No content response
   } catch (error) {
     next(error); // Pass to error middleware
@@ -61,9 +61,34 @@ export async function findAllHotelsController(req: Request, res: Response, next:
     const hotels = await findAllHotelsService();
     res.status(StatusCodes.OK).json({
       success: true,
+      itemCount: hotels.length,
       message: "Hotels retrieved successfully",
       data: hotels,
     });
+  } catch (error) {
+    next(error); // Pass to error middleware
+  }
+}
+
+export async function findAllActiveHotelsController(req: Request, res: Response, next: NextFunction) {
+  try {
+    const hotels = await findAllActiveHotelsService();
+    res.status(StatusCodes.OK).json({
+      success: true,
+      itemCount: hotels.length,
+      message: "Active hotels retrieved successfully",
+      data: hotels,
+    });
+  } catch (error) {
+    next(error); // Pass to error middleware
+  }
+}
+
+export async function softDeleteHotelController(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { id } = req.params;
+    await softDeleteHotelService(id);
+    res.status(StatusCodes.NO_CONTENT).send(); // No content response
   } catch (error) {
     next(error); // Pass to error middleware
   }

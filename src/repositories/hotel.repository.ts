@@ -30,4 +30,16 @@ export class HotelRepository {
     const hotels = await Hotel.findAll();
     return hotels;
   }
+  async softDeleteHotel(hotel: Hotel) {
+    hotel.deleted_at = new Date();
+    await hotel.save();
+  }
+  async findAllActiveHotels(){
+    const hotels = await Hotel.findAll({
+      where: {
+        deleted_at: null, // Only fetch hotels that are not soft-deleted
+      },
+    });
+    return hotels;
+  }
 }

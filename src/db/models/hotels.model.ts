@@ -26,6 +26,7 @@ class Hotel extends Model<InferAttributes<Hotel>, InferCreationAttributes<Hotel>
     declare created_at: CreationOptional<Date>;
     declare updated_at: CreationOptional<Date>;
     declare rating: CreationOptional<number>;
+    declare deleted_at: CreationOptional<Date | null>;
 }
 
 // Initialize the model
@@ -151,6 +152,11 @@ Hotel.init({
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
   },
+  deleted_at: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    defaultValue: null,
+  }
 }, {
   sequelize,
   tableName: 'Hotels',
