@@ -1,15 +1,12 @@
 // src/controllers/hotel.controller.ts
 
 import { NextFunction, Request, Response } from "express";
-import { createHotel, findHotel, updateHotel } from "../services/hotel.service";
-import { createHotelSchema } from "../validations/hotel.validation";
-import { NotFoundError } from "../utils/errors/app.error";
-import { ca } from "zod/v4/locales/index.cjs";
+import { createHotelService, findHotelService ,updateHotelService } from "../services/hotel.service";
 
 export async function createHotelController(req: Request, res: Response , next: NextFunction) {
   try {
-    
-    const hotel = await createHotel(req.body);
+
+    const hotel = await createHotelService(req.body);
 
     res.status(201).json({
       success: true,
@@ -24,7 +21,7 @@ export async function createHotelController(req: Request, res: Response , next: 
 export async function findHotelController(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
-    const hotel = await findHotel(id); // Service will throw NotFoundError if needed
+    const hotel = await findHotelService(id); // Service will throw NotFoundError if needed
     res.status(200).json({
       success: true,
       message: "Hotel found successfully",
@@ -38,7 +35,7 @@ export async function findHotelController(req: Request, res: Response, next: Nex
 export async function updateHotelController(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
-    const hotel = await updateHotel(id, req.body);
+    const hotel = await updateHotelService(id, req.body);
     res.status(200).json({
       success: true,
       message: "Hotel updated successfully",

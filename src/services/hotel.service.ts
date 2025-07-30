@@ -1,12 +1,11 @@
 import { HotelRepository } from "../repositories/hotel.repositorie";
-import { createHotelDto } from "../dto/Hotel.dto";
-import { CreateHotelInput } from "../validations/hotel.validation";
+import { CreateHotelInput, UpdateHotelInput } from "../validations/hotel.validation";
 import { InternalServerError, NotFoundError } from "../utils/errors/app.error";
 
 // Create an instance of the class
 const hotelRepository = new HotelRepository();
 
-export async function createHotel(data: CreateHotelInput) {
+export async function createHotelService(data: CreateHotelInput) {
   try {
     const hotel = await hotelRepository.createHotel(data);
     return hotel;
@@ -16,7 +15,7 @@ export async function createHotel(data: CreateHotelInput) {
 }
 
 
-export async function findHotel(id: string) {
+export async function findHotelService(id: string) {
   const hotel = await hotelRepository.findHotel(id);
   if (!hotel) {
     throw new NotFoundError("Hotel not found");
@@ -24,7 +23,7 @@ export async function findHotel(id: string) {
   return hotel;
 }
 
-export async function updateHotel(id: string, data: createHotelDto) {
+export async function updateHotelService(id: string, data: UpdateHotelInput) {
   const hotel = await hotelRepository.findHotel(id);
   if (!hotel) throw new NotFoundError("Hotel not found");
   const updatedHotel = await hotelRepository.updateHotelRecord(hotel, data);
