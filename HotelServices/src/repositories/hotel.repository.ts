@@ -41,5 +41,5 @@ export class HotelRepository {
       },
     });
     return hotels;
-  }
+  } 
 }
