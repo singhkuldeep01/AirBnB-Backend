@@ -15,13 +15,26 @@ datasource db {
 
 
 model Booking {
-  id          Int      @id @default(autoincrement())
-  userId      Int
-  hotelId     Int
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  hotelId       Int
   bookingAmount Float
-  bookingStatus BookingStatusEnum
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  bookingStatus BookingStatusEnum @default(PENDING)
+  totalGuests   Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  idempotencyKey IdempotencyKey?
+  expiresAt     DateTime
+}
+
+model IdempotencyKey {
+  id         Int      @id @default(autoincrement())
+  idemKey   String   @unique // uuid
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  finalized  Boolean  @default(false)
+  bookingId  Int      @unique
+  booking    Booking? @relation(fields: [bookingId], references: [id] , onDelete: Cascade)
 }
 
 enum BookingStatusEnum {

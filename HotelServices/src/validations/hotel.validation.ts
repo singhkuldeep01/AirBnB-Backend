@@ -11,7 +11,7 @@ export const createHotelSchema = z.object({
   email: z.string().email(),
   website: z.string().url().optional(),
   rating: z.number().min(0).max(5).optional(),
-});
+}); 
 
 export const updateHotelSchema = z.object({
   name: z.string().min(1, 'Name is required').optional(),
